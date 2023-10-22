@@ -1,5 +1,6 @@
 package org.example.collection;
 
+import java.util.Iterator;
 
 public class MyArrayListImpl<E extends Comparable<E>> implements MyList<E> {
 
@@ -61,22 +62,21 @@ public class MyArrayListImpl<E extends Comparable<E>> implements MyList<E> {
 
     @Override
     public boolean remove(Object o) {
-        if (o == null) {
-            for (int i = 0; i < size; i++) {
-                if (elementData[i] == null) {
-                    remove(i);
+        int index = 0;
+        for(E e: this) {
+            if (o == null) {
+                if (null == e) {
+                    remove(index);
+                    return true;
+                }
+            } else {
+                if (e.equals(o)) {
+                    remove(index);
                     return true;
                 }
             }
-        } else {
-            for (int i = 0; i < size; i++) {
-                if (o.equals(elementData[i])) {
-                    remove(i);
-                    return true;
-                }
-            }
+            index++;
         }
-
         return false;
     }
 
@@ -97,6 +97,25 @@ public class MyArrayListImpl<E extends Comparable<E>> implements MyList<E> {
     public void sort() {
         quickSort(elementData, 0, size - 1);
     }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            int cursor = 0;
+            @Override
+            public boolean hasNext() {
+                return cursor != size;
+            }
+
+            @Override
+            public E next() {
+                E element = (E) elementData[cursor];
+                cursor++;
+                return element;
+            }
+        };
+    }
+
 
     private void quickSort(Object[] arr, int left, int right) {
         if (left < right) {

@@ -1,6 +1,8 @@
 package org.example.collection;
 
-public interface MyList<E extends Comparable<E>> {
+import java.util.Iterator;
+
+public interface MyList<E extends Comparable<E>> extends Iterable<E> {
     void add(int index, E element);
 
     boolean addAll(MyList<? extends E> c);

@@ -3,6 +3,9 @@ package org.example;
 import org.example.collection.MyArrayListImpl;
 import org.example.collection.MyList;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class App {
     public static void main(String[] args) {
         MyList<String> stringMyList = new MyArrayListImpl<>();
@@ -35,11 +38,14 @@ public class App {
         //remove O
         stringMyList.remove(null);
         stringMyList.remove(null);
+        stringMyList.remove("G");
         System.out.println(stringMyList);
 
         //sort quick
 
         stringMyList.sort();
         System.out.println(stringMyList);
+
+
     }
 }
